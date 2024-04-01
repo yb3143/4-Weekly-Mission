@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useState, FocusEvent } from "react";
 import styles from "./input.module.css";
-import eyeOnImg from "public/images/eye-on.png";
-import eyeOffImg from "public/images/eye-off.png";
+import eyeOnImg from "public/images/eye-on.svg";
+import eyeOffImg from "public/images/eye-off.svg";
 import { validateEmail, validatePassword } from "@/sharing/util/validation";
 
 export const VALIDATE_TYPE = {
