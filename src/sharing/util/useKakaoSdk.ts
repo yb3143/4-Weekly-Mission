@@ -36,8 +36,13 @@ declare const window: Window & {
 };
 
 export const useKakaoSdk = () => {
-  const shareKakao = ({ url, title, description, imageUrl }: ShareKakaoParams) => {
-    if (window.Kakao) {
+  const shareKakao = ({
+    url,
+    title,
+    description,
+    imageUrl,
+  }: ShareKakaoParams) => {
+    if (typeof window !== "undefined" && window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
         kakao.init(process.env.REACT_APP_KAKAO_SDK_KEY);
@@ -68,13 +73,15 @@ export const useKakaoSdk = () => {
   };
 
   useEffectOnce(() => {
-    const script = document.createElement("script");
-    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
   });
 
   return { shareKakao };

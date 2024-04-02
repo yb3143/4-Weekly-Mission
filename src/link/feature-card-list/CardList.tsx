@@ -28,17 +28,20 @@ export const CardList = ({ links }: CardListProps) => {
 
   const getPopoverPosition = useCallback(
     (cardIndex: number) => {
-      const count =
-        cardListRef?.current !== null
-          ? window
-              .getComputedStyle(cardListRef?.current)
-              .getPropertyValue("grid-template-columns")
-              .split(" ").length
-          : 1;
-      if ((cardIndex + 1) % count === 0) {
-        return { right: 0 };
+      if (typeof window !== "undefined") {
+        const count =
+          cardListRef?.current !== null
+            ? window
+                .getComputedStyle(cardListRef?.current)
+                .getPropertyValue("grid-template-columns")
+                .split(" ").length
+            : 1;
+        if ((cardIndex + 1) % count === 0) {
+          return { right: 0 };
+        }
+        return { left: 0 };
       }
-      return { left: 0 };
+      return { left: 0 }; // 서버 측에서는 기본값 반환
     },
     [cardListRef]
   );

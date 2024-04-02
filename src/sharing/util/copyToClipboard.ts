@@ -1,5 +1,9 @@
 export const copyToClipboard = (text: string, callback?: () => void) => {
-  if (!navigator?.clipboard) {
+  if (typeof window !== "undefined" && window.navigator?.clipboard) {
+    window.navigator.clipboard.writeText(text).then(() => {
+      callback?.();
+    });
+  } else {
     const tempElement = document.createElement("textarea");
     tempElement.value = text;
     document.body.appendChild(tempElement);
@@ -7,9 +11,5 @@ export const copyToClipboard = (text: string, callback?: () => void) => {
     document.execCommand("copy");
     document.body.removeChild(tempElement);
     callback?.();
-    return;
   }
-  window.navigator.clipboard.writeText(text).then(() => {
-    callback?.();
-  });
 };

@@ -1,8 +1,6 @@
 import styles from "./AddFolderButton.module.scss";
 import classNames from "classnames/bind";
-import { ReactComponent as AddIcon } from "./add.svg";
 import { MouseEventHandler } from "react";
-
 const cx = classNames.bind(styles);
 
 type AddFolderButtonProps = {
@@ -13,7 +11,7 @@ export const AddFolderButton = ({ onClick }: AddFolderButtonProps) => {
   return (
     <button className={cx("container")} onClick={onClick}>
       <span>폴더 추가</span>
-      <AddIcon className={cx("icon")} />
+      <img src="/images/add.svg" className={cx("icon")} alt="A" />
     </button>
   );
 };
